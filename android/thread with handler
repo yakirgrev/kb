@@ -1,0 +1,51 @@
+//1. create an inner class for thread
+
+//INNER CLASS
+    class ExampleRunnable implements Runnable {
+        int seconds;
+
+        ExampleRunnable(int seconds) {
+            this.seconds = seconds;
+        }
+
+        @Override
+        public void run() {
+            while(true){
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            //WHAT HAPPENS IN THE UI
+                            tempText.setText(centi+"o");
+                            cityText.setText("In "+city);
+                            descriptionText.setText(description);
+                        }
+                    });
+                Log.d(TAG, "startThread: ");
+                try {
+                    //BACKGROUND WORK
+                    if(!readFromCity) {
+                        location = gpsInit();
+                        lat = location[0];
+                        lon = location[1];
+                    }
+                    //WAIT
+                    Thread.sleep(MILL_SECONDS);
+                    //READ WEATHER
+                    jsonParse();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+    }
+    
+//2. create an handler for sending info to the main thread (UI)
+
+private Handler mainHandler = new Handler();
+
+
+//3. in on create initalize and run the thread class:
+
+ExampleRunnable runnable = new ExampleRunnable(10);
+new Thread(runnable).start();
