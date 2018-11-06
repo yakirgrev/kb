@@ -1,4 +1,4 @@
-//1. create an inner class for thread
+//1. create an inner class for thread and put in the same class of MainActivity.java
 
 //INNER CLASS
     class ExampleRunnable implements Runnable {
@@ -40,7 +40,7 @@
         }
     }
     
-//2. create an handler for sending info to the main thread (UI)
+//2. create an handler for sending info to the main thread (UI) and put in OnCreate()
 
 private Handler mainHandler = new Handler();
 
