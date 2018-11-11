@@ -1,0 +1,32 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Random;
+
+public class IO {
+	final static int MAX_GRADES = 57;
+	final static int MAX_GRADE_RANGE = 100;
+	
+	public static void write() throws IOException {
+		
+		//preparing FileWriter and PrintWriter to be written
+		FileWriter fileWriter = new FileWriter("randomgrades.txt");//×ž×›×™× ×” ×�×ª ×”×§×•×‘×¥
+		PrintWriter printWriter = new PrintWriter(fileWriter);//×ž×›×™× ×” ×�×ª ×”×�×•×‘×™×™×§×˜ ×©×ž×�×¤×©×¨ ×›×ª×™×‘×” ×œ×§×•×‘×¥
+		//for random grades
+		Random rand = new Random();
+		
+		//writing 57 grades
+		for(int i=0; i<MAX_GRADES; i++)
+		printWriter.println(rand.nextInt(MAX_GRADE_RANGE+1));
+		
+		printWriter.close();
+		
+		//in case we prefer using the StdOut library and launch from command line like so: RandomGrades.java < randomgrades.txt
+		//StdOut.println(rand.nextInt(100+1));
+
+	}
+	public static void main(String[] args) throws IOException  {
+		IO.write();
+
+	}
+}
