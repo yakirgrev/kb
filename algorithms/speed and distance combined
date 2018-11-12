@@ -1,0 +1,64 @@
+import java.util.Formatter;
+
+public class SD {
+
+    public static void main(String[] args) {
+
+        SD obj = new SD();
+
+        System.out.println(obj.distance(32.9697, -96.80322, 29.46786, -98.53506, 'M') + " Meters\n");
+        System.out.println(obj.distance(32.9697, -96.80322, 29.46786, -98.53506, 'K') + " Kilometers\n");
+        
+        float sec = 6;
+
+		float timeSeconds = (0*3600) + (0*60) + sec;
+		double kph = ( obj.distance(32.9697, -96.80322, 29.46786, -98.53506, 'K')/1000.0f ) / ( timeSeconds/3600.0f );
+
+		System.out.println("Your speed in km/h is "+obj.doubleToString(kph));
+
+    }
+
+
+    public double distance(double lat1, double lon1, double lat2, double lon2, char unit) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        if (unit == 'K') {
+            dist = dist * 1.609344;
+        } else if (unit == 'M') {
+            dist = (dist * 1.609344)/1000;
+        }
+        return (dist);
+    }
+
+    public double speedKMH(double distance){
+        return (distance * 30) * 60;
+    }
+
+    //new
+    public String doubleToString(double distance){
+        Formatter fmt = new Formatter();
+        fmt.format("%.2f", distance);
+
+        String res = fmt.toString();
+
+        return res;
+    }
+
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    /*::  This function converts decimal degrees to radians             :*/
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    /*::  This function converts radians to decimal degrees             :*/
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
+
+}
