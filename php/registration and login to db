@@ -1,0 +1,67 @@
+We install wamp for creating a phpmyadmin server onto our local host.
+
+In the Wamp folder, there is a www folder in which our created apps resides in this path:
+C:\wamp64_4\www\webapp for example
+
+The webapp folder was created by us to contains the php files:
+init.php
+login.php
+register.php
+
+Each has a roll in connecting to the database we had created on phpmyadmin
+init - for connecting to the database in our localhost
+register - to add a user to the database
+login - is to log a user in, checks if the user exists and returns a message.
+
+------------------------------------init.php--------------------------------------
+<?php
+$db_name = "webappdb";
+$mysql_user = "root";
+$mysql_pass = "";
+#server name
+$server_name = "localhost";
+
+#establish a connection
+$con = mysqli_connect($server_name,$mysql_user,$mysql_pass,$db_name);
+if(!$con)
+{
+	echo "Connection Error...".mysqli_connect_error();
+}else{
+	echo "<h3>Database connection success...</h3>";
+}
+
+?>
+------------------------------------register.php--------------------------------------
+<?php
+require "init.php";
+$name = "Avi";
+$user_name = "avi_g";
+$user_pass = "avi@321";
+
+#sql query for entering the info above into the database
+#specify the table name to put into and then the values to put
+$sql_query = "insert into user_info values('$name','$user_name','$user_pass');";
+#connect them together (the con from init.php & sql_query)
+if(mysqli_query($con,$sql_query))
+{
+	echo "<h3>Data insertion success</h3>";
+}else{
+	echo "Data insertion error";
+}
+
+?>
+------------------------------------login.php--------------------------------------
+<?php
+require "init.php";
+$user_name = "yakir123";
+$user_pass = "yakir@321";
+$mysql_qry = "select * from user_info where user_name like '$user_name' and user_pass like '$user_pass';";
+$result = mysqli_query($con,$mysql_qry);
+
+if(mysqli_num_rows($result)>0){
+	echo "login success!";
+}else{
+	echo "login unsuccessful";
+}
+
+?>
