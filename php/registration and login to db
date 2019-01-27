@@ -1,3 +1,10 @@
+Reference:
+https://www.youtube.com/watch?v=eldh8l8yPew
+
+Code:
+http://www.codebind.com/android-tutorials-and-examples/android-mysql-database-tutorial-android-login-php-mysql/
+
+Workflow:
 We install wamp for creating a phpmyadmin server onto our local host.
 
 In the Wamp folder, there is a www folder in which our created apps resides in this path:
